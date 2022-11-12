@@ -32,6 +32,6 @@ Exemplo de como executar uma simualação. No terminal executar o seguinte coman
 locust -f locustfile.py
 ```
 
-Esse código vai abrir o navegador e lá poderemos configurar alguns configurações para nosso teste.
+Esse código vai abrir o navegador e lá poderemos  alguns configurações para nosso teste.
 
 Maiores explicações estão disponiveis no Diretório de documentação.
