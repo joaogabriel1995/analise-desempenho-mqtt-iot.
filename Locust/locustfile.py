@@ -1,26 +1,16 @@
 import time
 from locust import User, TaskSet, events, task, constant
 import paho.mqtt.client as mqtt
-
-broker_address = "192.168.15.3"
-COUNTClient = 0
-REQUEST_TYPE = "MQTT"
-PUBLISH_TIMEOUT = 10000
+from utils import get_time, increment, COUNTClient, formatpayload, time_delta
 
 
-def time_delta(t1, t2):
-    return int((t2 - t1))
-
-
-def get_time(context):
-    time_info = time.time() * 1000
-    # print(context, time_info)
-    return time_info
-
-
-def increment():
-    global COUNTClient
-    COUNTClient = COUNTClient + 1
+broker_address: str = "192.168.15.3"
+COUNTClient: int = 0
+REQUEST_TYPE: str = "MQTT"
+PUBLISH_TIMEOUT: int = 10000
+SIZE_PAYLOAD: int = 6
+PORT_HOST: int = 1883
+WAIT_TIME: int = 1
 
 
 class Message(object):
@@ -36,21 +26,21 @@ class Message(object):
 
 class PublishTask(TaskSet):
     def on_start(self):
-        self.client.connect(host=broker_address, port=1883, keepalive=60)
+        self.client.connect(host=broker_address, port=PORT_HOST, keepalive=60)
 
     @task(1)
     def task_pub(self):
         self.client.loop_start()
         self.start_time = get_time("Start")
-        topic = "Device{}".format(str(self.client._client_id))
-        payload = "0" * 256
+        topic = str(self.client._client_id)
+        payload = formatpayload(SIZE_PAYLOAD)
         MQTTMessageInfo = self.client.publish(
             topic, payload, qos=1, retain=False)
+
         pub_mid = "{}-{}".format(MQTTMessageInfo.mid,
                                  self.client._client_id.decode())
         MQTTMessageInfo.mid = "{}-{}".format(MQTTMessageInfo.mid,
                                              self.client._client_id.decode())
-        print(MQTTMessageInfo.mid, pub_mid)
         self.client.user_data_set(pub_mid)
 
         self.client.pubmessage[pub_mid] = Message(
@@ -71,12 +61,13 @@ class PublishTask(TaskSet):
 class MQTTLocust(User):
     tasks = {PublishTask}
     _locust_environment = None
+    wait_time = constant(WAIT_TIME)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         increment()
         self.client_name = "Device - " + str(COUNTClient)
-        self.client = mqtt.Client(self.client_name, userdata="")
+        self.client = mqtt.Client(self.client_name)
         self.client.on_connect = self.on_connect
         self.client.on_publish = self.on_publish
         #self.client.on_log = self.on_log
@@ -92,9 +83,7 @@ class MQTTLocust(User):
                              self.client_name)
 
         message = client.pubmessage.pop(mid, None)
-        print(userdata)
         total_time = time_delta(message.start_time, self.end_time)
-        # print(total_time)
         events.request.fire(
             request_type=REQUEST_TYPE,
             name="{}".format(str(self.client_name)),
