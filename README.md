@@ -15,3 +15,6 @@ Documentation -> Nessa Pasta foi disponibilizada uma documentação e uma breve 
 Dentro de cada um desses pastas temos um arquivo denominado requirements.txt que é um arquivo contendo as dependencias necessárias para rodar os scripts.
 
 Cada um das pastas contêm um `README.md` contendo informações necessárias para que sejam possiveis rodar os scripts.
+
+
+Documentação completa no seguinte link : https://joaogabriel1995.github.io/analise-desempenho-mqtt-iot./
