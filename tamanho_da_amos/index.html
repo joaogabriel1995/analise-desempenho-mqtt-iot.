@@ -1,0 +1,721 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
+    
+    
+      
+        <title>Definindo tamanho de amostra - Simulação IoT</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#determinacao-do-tamanho-amostral" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Simulação IoT" class="md-header__button md-logo" aria-label="Simulação IoT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Simulação IoT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Definindo tamanho de amostra
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Simulação IoT" class="md-nav__button md-logo" aria-label="Simulação IoT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Simulação IoT
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introdução
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../path/" class="md-nav__link">
+        Estrutura de Pastas
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code/" class="md-nav__link">
+        Código para Simulação
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Definindo tamanho de amostra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Definindo tamanho de amostra
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    Introdução
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-dos-dados" class="md-nav__link">
+    Tratamento dos dados
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceitos-basicos-de-estatistica" class="md-nav__link">
+    Conceitos básicos de estatística
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceitos básicos de estatística">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intervalo-de-confianca" class="md-nav__link">
+    Intervalo de confiança
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score-z" class="md-nav__link">
+    Score Z
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calculando-o-numero-de-amostra" class="md-nav__link">
+    Calculando o número de amostra
+  </a>
+  
+    <nav class="md-nav" aria-label="Calculando o número de amostra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calculando-o-desvio-padrao-s" class="md-nav__link">
+    Calculando o desvio padrão \(s\)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculando-o-erro" class="md-nav__link">
+    Calculando o Erro
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculando-o-tamanho-da-nossa-amostra" class="md-nav__link">
+    Calculando o tamanho da nossa amostra
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    Introdução
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-dos-dados" class="md-nav__link">
+    Tratamento dos dados
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceitos-basicos-de-estatistica" class="md-nav__link">
+    Conceitos básicos de estatística
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceitos básicos de estatística">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intervalo-de-confianca" class="md-nav__link">
+    Intervalo de confiança
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score-z" class="md-nav__link">
+    Score Z
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calculando-o-numero-de-amostra" class="md-nav__link">
+    Calculando o número de amostra
+  </a>
+  
+    <nav class="md-nav" aria-label="Calculando o número de amostra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calculando-o-desvio-padrao-s" class="md-nav__link">
+    Calculando o desvio padrão \(s\)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculando-o-erro" class="md-nav__link">
+    Calculando o Erro
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculando-o-tamanho-da-nossa-amostra" class="md-nav__link">
+    Calculando o tamanho da nossa amostra
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="determinacao-do-tamanho-amostral">DETERMINAÇÃO DO TAMANHO AMOSTRAL</h1>
+<h2 id="introducao">Introdução</h2>
+<p>Através de uma pré-amostragem, denominada de amostragem piloto, calcula-se o
+número de unidades amostrais necessárias para compor a amostra representativa da população
+dentro do limite de erro estipulado ou estabelecido.</p>
+<p>Agora que já sabemos rodar o projeto, será realizada uma simulação e serão capituradas as
+trocas de mensagens entre o broker e um cliente simulado por nosso projeto.</p>
+<p>Lembrando que nossas informações serão capturadas de 2 modos, um que será pelo próprio Locust e um segundo modo será pelo Wireshark para que seja possivel realizar estudos em cima dos nossos dados. Após a obtenção dos dados pelo Wireshark iremos salva-los em formato csv e iremos tratar esses dados em um script em python que também será disponibilizado e explicado mais a frente.</p>
+<p>Logo abaixo deixamos uma pequena parte do nosso arquivo da simulação da amostra piloto.</p>
+<div class="highlight"><span class="filename">amostra_piloto.csv</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;No.&quot;,&quot;Time&quot;,&quot;Source&quot;,&quot;Destination&quot;,&quot;Protocol&quot;,&quot;Length&quot;,&quot;Topic&quot;,&quot;Message Identifier&quot;,&quot;Source Port&quot;,&quot;Destination Port&quot;,&quot;Info&quot;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&quot;185&quot;,&quot;26.021096759&quot;,&quot;192.168.15.4&quot;,&quot;192.168.15.3&quot;,&quot;MQTT&quot;,&quot;90&quot;,&quot;&quot;,&quot;&quot;,&quot;37953&quot;,&quot;1883&quot;,&quot;Connect Command&quot;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>&quot;187&quot;,&quot;26.023436459&quot;,&quot;192.168.15.4&quot;,&quot;192.168.15.3&quot;,&quot;MQTT&quot;,&quot;97&quot;,&quot;Deviceb&#39;Device - 1&#39;&quot;,&quot;1&quot;,&quot;37953&quot;,&quot;1883&quot;,&quot;Publish Message (id=1) [Deviceb&#39;Device - 1&#39;]&quot;
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>&quot;188&quot;,&quot;26.023917838&quot;,&quot;192.168.15.3&quot;,&quot;192.168.15.4&quot;,&quot;MQTT&quot;,&quot;70&quot;,&quot;&quot;,&quot;&quot;,&quot;1883&quot;,&quot;37953&quot;,&quot;Connect Ack&quot;
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>&quot;191&quot;,&quot;26.026219616&quot;,&quot;192.168.15.3&quot;,&quot;192.168.15.4&quot;,&quot;MQTT&quot;,&quot;70&quot;,&quot;&quot;,&quot;1&quot;,&quot;1883&quot;,&quot;37953&quot;,&quot;Publish Ack (id=1)&quot;
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>&quot;198&quot;,&quot;27.028577195&quot;,&quot;192.168.15.4&quot;,&quot;192.168.15.3&quot;,&quot;MQTT&quot;,&quot;97&quot;,&quot;Deviceb&#39;Device - 1&#39;&quot;,&quot;2&quot;,&quot;37953&quot;,&quot;1883&quot;,&quot;Publish Message (id=2) [Deviceb&#39;Device - 1&#39;]&quot;
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>&quot;200&quot;,&quot;27.031371904&quot;,&quot;192.168.15.3&quot;,&quot;192.168.15.4&quot;,&quot;MQTT&quot;,&quot;70&quot;,&quot;&quot;,&quot;2&quot;,&quot;1883&quot;,&quot;37953&quot;,&quot;Publish Ack (id=2)&quot;
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>&quot;212&quot;,&quot;28.033880087&quot;,&quot;192.168.15.4&quot;,&quot;192.168.15.3&quot;,&quot;MQTT&quot;,&quot;97&quot;,&quot;Deviceb&#39;Device - 1&#39;&quot;,&quot;3&quot;,&quot;37953&quot;,&quot;1883&quot;,&quot;Publish Message (id=3) [Deviceb&#39;Device - 1&#39;]&quot;
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>&quot;214&quot;,&quot;28.036671599&quot;,&quot;192.168.15.3&quot;,&quot;192.168.15.4&quot;,&quot;MQTT&quot;,&quot;70&quot;,&quot;&quot;,&quot;3&quot;,&quot;1883&quot;,&quot;37953&quot;,&quot;Publish Ack (id=3)&quot;
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>&quot;220&quot;,&quot;29.038713357&quot;,&quot;192.168.15.4&quot;,&quot;192.168.15.3&quot;,&quot;MQTT&quot;,&quot;97&quot;,&quot;Deviceb&#39;Device - 1&#39;&quot;,&quot;4&quot;,&quot;37953&quot;,&quot;1883&quot;,&quot;Publish Message (id=4) [Deviceb&#39;Device - 1&#39;]&quot;
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>&quot;221&quot;,&quot;29.041346621&quot;,&quot;192.168.15.3&quot;,&quot;192.168.15.4&quot;,&quot;MQTT&quot;,&quot;70&quot;,&quot;&quot;,&quot;4&quot;,&quot;1883&quot;,&quot;37953&quot;,&quot;Publish Ack (id=4)&quot;
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>&quot;235&quot;,&quot;30.042764932&quot;,&quot;192.168.15.4&quot;,&quot;192.168.15.3&quot;,&quot;MQTT&quot;,&quot;97&quot;,&quot;Deviceb&#39;Device - 1&#39;&quot;,&quot;5&quot;,&quot;37953&quot;,&quot;1883&quot;,&quot;Publish Message (id=5) [Deviceb&#39;Device - 1&#39;]&quot;
+</code></pre></div>
+<p>Após realizarmos a simulação vamos começar a analisar nosso script em python para tratarmos e estudarmos os dados.</p>
+<p>Nossa amostra piloto ficou salva no seguinte caminho <code>Data_analytics/device-1-sizepayload-6-msg-600/data.csv</code></p>
+<h2 id="tratamento-dos-dados">Tratamento dos dados</h2>
+<p>Primeiro iremos realizar as importações necessárias para que nosso script execute perfeitamente.</p>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span> <span class="nn">re</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">import</span> <span class="nn">scipy</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</code></pre></div>
+<p>Nesse trecho de código iremos utilizar a biblioteca pandas para ler nossos dados no formato csv.</p>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./data.csv&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">ports</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Source Port&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">ports</span> <span class="o">=</span> <span class="n">ports</span><span class="p">[</span><span class="n">ports</span> <span class="o">!=</span><span class="mi">1883</span><span class="p">]</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">ports</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">ports</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>array([37953])
+</code></pre></div>
+<p>Logo acima capturamos as portas TCP de cada um dos dispositivos. O que nos possibilita separarmos as informações por dispositivo.
+Cada um dos valores da lista <code>ports</code> representa um dispositivo testado na nossa simulação.Nesse caso em especifico estamos utilizando apenas um dispotivo na porta 37953.</p>
+<p>Para calcularmos o Round Trip Time precisamos capturar as linhas que possuem a informação <code>Publish Message</code> e as linhas que apresentão a confirmação de entrega que são as linhas que possuem a informação <code>Publish Ack</code>.</p>
+<p>Logo abaixo iremos capturar as informações necessarias e iremos separar por device e suas respctivas <code>Publish Message</code> e <code>Publish Ack</code>.</p>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1">#  : devices será um dicionario que irá ter uma chave referente ao device e o valor será um dataframe referente aos respectivos devices</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  <span class="n">array_publish</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Source Port&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">port</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Message Identifier&#39;</span><span class="p">])</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  <span class="n">array_publish_ack</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Destination Port&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">port</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Message Identifier&#39;</span><span class="p">])</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  <span class="n">device</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;publish&quot;</span><span class="p">:</span><span class="n">array_publish</span><span class="p">,</span> <span class="s2">&quot;publish_ack&quot;</span> <span class="p">:</span> <span class="n">array_publish_ack</span><span class="p">}</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  <span class="n">devices</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
+</code></pre></div>
+<p>Logo abaixo construi uma lógica para utilizarmos as informações dos dados extraidos acima e calculamos o round trip time de cada um dos dispositivos.</p>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">RTT</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Time_publish&quot;</span><span class="p">,</span> <span class="s2">&quot;Time_ack&quot;</span><span class="p">])</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;publish&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="nb">id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Message Identifier&quot;</span><span class="p">])</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="n">time_publish</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="n">RTT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;Time_publish&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_publish</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;publish_ack&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="nb">id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Message Identifier&quot;</span><span class="p">])</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="n">time_publish</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="n">RTT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;Time_ack&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_publish</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">RTT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;Time_ack&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_publish</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">RTT</span><span class="p">[</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span>  <span class="o">=</span><span class="p">(</span><span class="n">RTT</span><span class="p">[</span><span class="s2">&quot;Time_ack&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">RTT</span><span class="p">[</span><span class="s2">&quot;Time_publish&quot;</span><span class="p">]</span> <span class="p">)</span><span class="o">*</span> <span class="mi">1000</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="o">=</span> <span class="n">RTT</span>
+</code></pre></div>
+<p>Agora já temos calculado todas as linhas de cada um dos dispositivos.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>data[37953].head()
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Time_publish</th>
+<th>Time_ack</th>
+<th>RTT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>26.023436</td>
+<td>26.02622</td>
+<td>2.783157</td>
+</tr>
+<tr>
+<td>2</td>
+<td>27.028577</td>
+<td>27.031372</td>
+<td>2.794709</td>
+</tr>
+<tr>
+<td>3</td>
+<td>28.03388</td>
+<td>28.036672</td>
+<td>2.791512</td>
+</tr>
+<tr>
+<td>4</td>
+<td>29.038713</td>
+<td>29.041347</td>
+<td>2.633264</td>
+</tr>
+<tr>
+<td>5</td>
+<td>30.042765</td>
+<td>30.045957</td>
+<td>3.19254</td>
+</tr>
+</tbody>
+</table>
+<p>Agora que analisamos como está nossa tabela depois de todas as manipulações vamos calcular a média, moda, desvio padrão e mais algumas informações. Lembrando que nesse caso estamos tratando os dados de um dispositivo mas o código foi escrito para suportar um ou mais dispositivos.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">data_mean</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">data_median</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">data_std</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">data_min</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">data_max</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  <span class="n">data_mean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  <span class="n">data_median</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  <span class="n">data_std</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>  <span class="n">data_min</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>  <span class="n">data_max</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Device-</span><span class="si">{}</span><span class="s2">)Mean Round Trip Time = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Device-</span><span class="si">{}</span><span class="s2">)Median Round Trip Time = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()))</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Device-</span><span class="si">{}</span><span class="s2">)Standard deviation  Round Trip Time = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()))</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Device-</span><span class="si">{}</span><span class="s2">)Min Round Trip Time = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(Device-</span><span class="si">{}</span><span class="s2">)Max Round Trip Time = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">port</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------------------------------------------------------------&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>  <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">output</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>(Device-1)Mean Round Trip Time = 2.794579920265673
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>(Device-1)Median Round Trip Time = 2.6867750000008073
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>(Device-1)Standard deviation  Round Trip Time = 0.6409882996918244
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>(Device-1)Min Round Trip Time = 2.37513999991279
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>(Device-1)Max Round Trip Time = 12.155039000049328
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>---------------------------------------------------------------
+</code></pre></div>
+<h2 id="conceitos-basicos-de-estatistica">Conceitos básicos de estatística</h2>
+<p>Para calcularmos o número de amostras precisamos entender alguns conceitos básicos, irei abordar de forma breve para darmos andamento nos calculos.</p>
+<h3 id="intervalo-de-confianca">Intervalo de confiança</h3>
+<p>Um intervalo de confiança é uma amplitude de valores, que são derivadas de estatísticas de amostras, que tem a probabilidade de conter o valor de um parâmetro populacional desconhecido.</p>
+<p>O <strong>nível de confiança</strong> (<span class="arithmatex">\(1 - \alpha\)</span>) representa a probabilidade de acerto da estimativa. De forma complementar o <strong>nível de significância</strong> (<span class="arithmatex">\(\alpha\)</span>) expressa a probabilidade de erro da estimativa.</p>
+<p>O <strong>nível de confiança</strong> representa o grau de confiabilidade do resultado da estimativa estar dentro de determinado intervalo. Quando fixamos em uma pesquisa um <strong>nível de confiança</strong> de 95%, por exemplo, estamos assumindo que existe uma probabilidade de 95% dos resultados da pesquisa representarem bem a realidade, ou seja, estarem corretos.</p>
+<p>O <strong>nível de confiança</strong> de uma estimativa pode ser obtido a partir da área sob a curva normal como ilustrado na figura abaixo.</p>
+<p><img alt="alt text" src="https://caelum-online-public.s3.amazonaws.com/1178-estatistica-parte2/01/img007.png" /></p>
+<h3 id="score-z">Score Z</h3>
+<ul>
+<li>É o quanto uma medida se afasta da média em termos de Desvios
+  Padrão.</li>
+<li>Quando o escore Z é positivo isto indica que o dado está acima da
+  média e quando o mesmo é negativo significa que o dado está abaixo
+  da média.</li>
+<li>Seus valores oscilam entre -3 &lt; Z &lt; +3 e isto corresponde a 99,72% da
+  área sob a curva da Distribuição Normal.</li>
+</ul>
+<p>Em nosso estudo iremos utilizar um nivel de confiança igual a 95% e se consultarmos a tabela de Distribuição normal iremos encontrar um z é aproximadamente 1,96.</p>
+<p>Z = 1,96 (tabela da Distribuição Normal)</p>
+<h2 id="calculando-o-numero-de-amostra">Calculando o número de amostra</h2>
+<p>Para o calculo do número de amostra iremos utilizar a seguinte formula:</p>
+<div class="arithmatex">\[n = \left(z\frac{s}{e}\right)^2\]</div>
+<p>onde:
+<span class="arithmatex">\(z\)</span> = variável normal padronizada</p>
+<p><span class="arithmatex">\(s\)</span> = desvio padrão amostral</p>
+<p><span class="arithmatex">\(e\)</span> = erro inferencial</p>
+<h3 id="calculando-o-desvio-padrao-s">Calculando o desvio padrão <span class="arithmatex">\(s\)</span></h3>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">desvio_padrao_amostral</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">37953</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">desvio_padrao_amostral</span>
+</code></pre></div>
+<div class="arithmatex">\[
+desvioPadraoAmostral = 9.329458861571394
+\]</div>
+<h3 id="calculando-o-erro">Calculando o Erro</h3>
+<p>Voltando ao nosso script teremos que adicionar as seguintes linhas de código para calcularmos o tamanho amostral</p>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">media</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">37953</span><span class="p">][</span><span class="s2">&quot;RTT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">e</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">media</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">e</span>
+</code></pre></div>
+<div class="arithmatex">\[
+e = 0.2284361217568699
+\]</div>
+<h3 id="calculando-o-tamanho-da-nossa-amostra">Calculando o tamanho da nossa amostra</h3>
+<div class="highlight"><span class="filename">relatorio.ipynb</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span><span class="o">/</span><span class="n">e</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">n</span>
+</code></pre></div>
+<div class="arithmatex">\[
+n = 80.83944240619886
+\]</div>
+<p>O código que foi explicado acima se localiza no diretório <code>Data_analytics/device-1-sizepayload-6-msg-600/relatorio.ipynb</code></p>
+<p>Com isso finalizamos o calculo do número de amostra que iremos utilizar para nosso estudo.
+Lembrando que todos os códigos estaram disponiveis no github.</p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../code/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Código para Simulação" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Código para Simulação
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.0238f547.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
