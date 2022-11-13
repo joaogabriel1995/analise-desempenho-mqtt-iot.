@@ -2,7 +2,8 @@ import time
 from locust import User, TaskSet, events, task, constant
 import paho.mqtt.client as mqtt
 import ssl
-from utils import get_time, increment, COUNTClient, formatpayload, time_delta
+from Locust.src.utils import get_time, increment, formatpayload, time_delta
+from message import Message
 
 
 broker_address = "192.168.15.3"
@@ -11,17 +12,12 @@ REQUEST_TYPE = "MQTT"
 PUBLISH_TIMEOUT = 10000
 SIZE_PAYLOAD = 256
 PORT_HOST = 8883
+WAIT_TIME: int = 1
 
 
-class Message(object):
-    def __init__(self, type, qos, topic, payload, start_time, timeout, name):
-        self.type = (type,)
-        self.qos = (qos,)
-        self.topic = topic
-        self.payload = payload
-        self.start_time = start_time
-        self.timeout = timeout
-        self.name = name
+def increment(var):
+    global COUNTClient
+    COUNTClient = COUNTClient + 1
 
 
 class PublishTask(TaskSet):
@@ -31,7 +27,7 @@ class PublishTask(TaskSet):
     @task(1)
     def task_pub(self):
         self.client.loop_start()
-        self.start_time = get_time("Start")
+        self.start_time = get_time()
         topic = str(self.client._client_id)
         payload = formatpayload(SIZE_PAYLOAD)
         MQTTMessageInfo = self.client.publish(
@@ -59,7 +55,7 @@ class PublishTask(TaskSet):
 class MQTTLocust(User):
     tasks = {PublishTask}
     _locust_environment = None
-    wait_time = constant(5)
+    wait_time = constant(WAIT_TIME)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -80,7 +76,7 @@ class MQTTLocust(User):
 
     def on_publish(self, client, userdata, mid):
 
-        self.end_time = get_time("Stop")
+        self.end_time = get_time()
         mid = "{}-{}".format(mid,
                              self.client_name)
 

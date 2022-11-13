@@ -6,7 +6,9 @@ theme:
 
 nav:
   - Introdução: index.md
-  - Código para Simulação: path.md
+  - Estrutura de Pastas: path.md
+  
+  - Código para Simulação: code.md
   - Definindo tamanho de amostra: tamanho_da_amos.md
 
 markdown_extensions:

@@ -1,8 +1,8 @@
 import time
 from locust import User, TaskSet, events, task, constant
 import paho.mqtt.client as mqtt
-from utils import get_time, increment, COUNTClient, formatpayload, time_delta
-
+from utils import get_time, formatpayload, time_delta
+from message import Message
 
 broker_address: str = "192.168.15.3"
 COUNTClient: int = 0
@@ -13,15 +13,9 @@ PORT_HOST: int = 1883
 WAIT_TIME: int = 1
 
 
-class Message(object):
-    def __init__(self, type, qos, topic, payload, start_time, timeout, name):
-        self.type = (type,)
-        self.qos = (qos,)
-        self.topic = topic
-        self.payload = payload
-        self.start_time = start_time
-        self.timeout = timeout
-        self.name = name
+def increment():
+    global COUNTClient
+    COUNTClient = COUNTClient + 1
 
 
 class PublishTask(TaskSet):
@@ -31,7 +25,7 @@ class PublishTask(TaskSet):
     @task(1)
     def task_pub(self):
         self.client.loop_start()
-        self.start_time = get_time("Start")
+        self.start_time = get_time()
         topic = str(self.client._client_id)
         payload = formatpayload(SIZE_PAYLOAD)
         MQTTMessageInfo = self.client.publish(
@@ -55,7 +49,11 @@ class PublishTask(TaskSet):
         MQTTMessageInfo.wait_for_publish()
 
         self.client.loop_stop()
-        constant(1)
+
+    def on_stop(self):
+        global COUNTClient
+        COUNTClient = 0
+        return super().on_stop()
 
 
 class MQTTLocust(User):
@@ -70,7 +68,6 @@ class MQTTLocust(User):
         self.client = mqtt.Client(self.client_name)
         self.client.on_connect = self.on_connect
         self.client.on_publish = self.on_publish
-        #self.client.on_log = self.on_log
         self.client.pubmessage = {}
 
     def on_connect(client, userdata, flags, rc, props=None):
@@ -78,7 +75,7 @@ class MQTTLocust(User):
 
     def on_publish(self, client, userdata, mid):
 
-        self.end_time = get_time("Stop")
+        self.end_time = get_time()
         mid = "{}-{}".format(mid,
                              self.client_name)
 

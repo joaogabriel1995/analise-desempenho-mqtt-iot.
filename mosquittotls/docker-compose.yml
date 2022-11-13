@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  mqtt_tls:
+    container_name: mqtt_tls
+    image: eclipse-mosquitto
+    restart: always
+    volumes:
+      - /home/joao/Documents/mosquittotls/config:/mosquitto/config
+      - /home/joao/Documents/mosquittotls/data:/mosquitto/data
+      - /home/joao/Documents/mosquittotls/log:/mosquitto/log
+    ports:
+      - 8883:8883
+
+    networks:
+      - intnet
+
+volumes:
+  node-red-data:
+
+
+networks:
+  intnet:
