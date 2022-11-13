@@ -3,6 +3,8 @@
 Agora, vamos analisar o arquivo locustfile.py e vamos destrinchar o código.
 Como podemos analisar o arquivo locust é um módulo Python normal, ele pode importar código de outros arquivos ou pacotes.
 
+Nesse primeiro momento irei explicar os códigos e resultados para os testes sem a utilização do protocolo de segurança `Transport Layer Security`(TLS)
+
 ## Import
 
 ```.py
