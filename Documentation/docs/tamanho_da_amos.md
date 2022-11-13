@@ -15,27 +15,29 @@ Logo abaixo deixamos uma pequena parte do nosso arquivo da simulação da amostr
 
 ```{.csv title="amostra_piloto.csv"}
 
-No.,"Time","Source","Destination","Protocol","Length","Info"
-164,"6.773386734","192.168.15.4","192.168.15.3","MQTT","90","Connect Command"
-165,"6.773478368","192.168.15.4","192.168.15.3","MQTT","68","Disconnect Req"
-170,"6.776183681","192.168.15.4","192.168.15.3","MQTT","90","Connect Command"
-171,"6.776305141","192.168.15.3","192.168.15.4","MQTT","70","Connect Ack"
-176,"6.778768225","192.168.15.4","192.168.15.3","MQTT","171","Publish Message (id=1) [Deviceb'Device - 1']"
-177,"6.779113569","192.168.15.3","192.168.15.4","MQTT","70","Connect Ack"
-180,"6.781291543","192.168.15.3","192.168.15.4","MQTT","70","Publish Ack (id=1)"
-182,"6.781571524","192.168.15.4","192.168.15.3","MQTT","68","Disconnect Req"
-198,"7.785566016","192.168.15.4","192.168.15.3","MQTT","90","Connect Command"
-200,"7.788460087","192.168.15.4","192.168.15.3","MQTT","171","Publish Message (id=2) [Deviceb'Device - 1']"
-201,"7.788832923","192.168.15.3","192.168.15.4","MQTT","70","Connect Ack"
+"No.","Time","Source","Destination","Protocol","Length","Topic","Message Identifier","Source Port","Destination Port","Info"
+"185","26.021096759","192.168.15.4","192.168.15.3","MQTT","90","","","37953","1883","Connect Command"
+"187","26.023436459","192.168.15.4","192.168.15.3","MQTT","97","Deviceb'Device - 1'","1","37953","1883","Publish Message (id=1) [Deviceb'Device - 1']"
+"188","26.023917838","192.168.15.3","192.168.15.4","MQTT","70","","","1883","37953","Connect Ack"
+"191","26.026219616","192.168.15.3","192.168.15.4","MQTT","70","","1","1883","37953","Publish Ack (id=1)"
+"198","27.028577195","192.168.15.4","192.168.15.3","MQTT","97","Deviceb'Device - 1'","2","37953","1883","Publish Message (id=2) [Deviceb'Device - 1']"
+"200","27.031371904","192.168.15.3","192.168.15.4","MQTT","70","","2","1883","37953","Publish Ack (id=2)"
+"212","28.033880087","192.168.15.4","192.168.15.3","MQTT","97","Deviceb'Device - 1'","3","37953","1883","Publish Message (id=3) [Deviceb'Device - 1']"
+"214","28.036671599","192.168.15.3","192.168.15.4","MQTT","70","","3","1883","37953","Publish Ack (id=3)"
+"220","29.038713357","192.168.15.4","192.168.15.3","MQTT","97","Deviceb'Device - 1'","4","37953","1883","Publish Message (id=4) [Deviceb'Device - 1']"
+"221","29.041346621","192.168.15.3","192.168.15.4","MQTT","70","","4","1883","37953","Publish Ack (id=4)"
+"235","30.042764932","192.168.15.4","192.168.15.3","MQTT","97","Deviceb'Device - 1'","5","37953","1883","Publish Message (id=5) [Deviceb'Device - 1']"
 ```
 
 Após realizarmos a simulação vamos começar a analisar nosso script em python para tratarmos e estudarmos os dados.
+
+Nossa amostra piloto ficou salva no seguinte caminho `Data_analytics/device-1-sizepayload-6-msg-600/data.csv`
 
 ## Tratamento dos dados
 
 Primeiro iremos realizar as importações necessárias para que nosso script execute perfeitamente.
 
-```python
+```python title="relatorio.ipynb"
 import pandas as pd
 import re
 import matplotlib.pyplot as plt
@@ -43,204 +45,111 @@ import scipy
 import numpy as np
 ```
 
-Nesse trecho de código iremos utilizar a biblioteca pandas para ler nossos dados no formato csv e iremos capturar apenas as 5 primeiras linhas para analisarmos como estão nossos dados.
+Nesse trecho de código iremos utilizar a biblioteca pandas para ler nossos dados no formato csv.
 
-```python
-data = pd.read_csv("./amostra_piloto.csv")
-data.head(5)
+```python title="relatorio.ipynb"
+data = pd.read_csv("./data.csv")
+ports = data["Source Port"].unique()
+ports = ports[ports !=1883]
+ports
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+```title="ports"
+array([37953])
+```
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+Logo acima capturamos as portas TCP de cada um dos dispositivos. O que nos possibilita separarmos as informações por dispositivo.
+Cada um dos valores da lista `ports` representa um dispositivo testado na nossa simulação.Nesse caso em especifico estamos utilizando apenas um dispotivo na porta 37953.
 
-    .dataframe thead th {
-        text-align: right;
-    }
+Para calcularmos o Round Trip Time precisamos capturar as linhas que possuem a informação `Publish Message` e as linhas que apresentão a confirmação de entrega que são as linhas que possuem a informação `Publish Ack`.
 
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>No.</th>
-      <th>Time</th>
-      <th>Source</th>
-      <th>Destination</th>
-      <th>Protocol</th>
-      <th>Length</th>
-      <th>Info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>164</td>
-      <td>6.773387</td>
-      <td>192.168.15.4</td>
-      <td>192.168.15.3</td>
-      <td>MQTT</td>
-      <td>90</td>
-      <td>Connect Command</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>165</td>
-      <td>6.773478</td>
-      <td>192.168.15.4</td>
-      <td>192.168.15.3</td>
-      <td>MQTT</td>
-      <td>68</td>
-      <td>Disconnect Req</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>170</td>
-      <td>6.776184</td>
-      <td>192.168.15.4</td>
-      <td>192.168.15.3</td>
-      <td>MQTT</td>
-      <td>90</td>
-      <td>Connect Command</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>171</td>
-      <td>6.776305</td>
-      <td>192.168.15.3</td>
-      <td>192.168.15.4</td>
-      <td>MQTT</td>
-      <td>70</td>
-      <td>Connect Ack</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>176</td>
-      <td>6.778768</td>
-      <td>192.168.15.4</td>
-      <td>192.168.15.3</td>
-      <td>MQTT</td>
-      <td>171</td>
-      <td>Publish Message (id=1) [Deviceb'Device - 1']</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Logo abaixo iremos capturar as informações necessarias e iremos separar por device e suas respctivas `Publish Message` e `Publish Ack`.
 
-Para calcularmos o Round Trip Time precisamos capturar as linhas que possuem a informação `Publish Message` e as linhas que apresentão a confirmação de entrega de entrega que são as linhas que possuem a infromação `Publish Ack`.
-
-Dentro desse `for` iremos percorrer nossa tabela de dados amostrais e buscar por essas duas informações que foram explicadas acima. E iremos salvar isso em uma estrutura de dados que são as listas.
-
-```python
-array_publish = []
-array_publish_ack = []
-
-for i in range(len(data)):
-    if re.search("Publish Message", data.loc[i, "Info"]):
-        array_publish.append(i)
-    if re.search("Publish Ack ", data.loc[i, "Info"]):
-        array_publish_ack.append(i)
+```python title="relatorio.ipynb"
+devices = {}
+#  : devices será um dicionario que irá ter uma chave referente ao device e o valor será um dataframe referente aos respectivos devices
+for port in ports:
+  array_publish = data.loc[data["Source Port"] == port].dropna(subset=['Message Identifier'])
+  array_publish_ack = data.loc[data["Destination Port"] == port].dropna(subset=['Message Identifier'])
+  device = {"publish":array_publish, "publish_ack" : array_publish_ack}
+  devices[port] = device
 
 ```
 
-Agora iremos construir um novo Tabela contendo as listas que foram capturadas acima, podemos perceber que em nossa coluna de informações tambem temos os id relacionadas as mensagens trocadas, iremos capturar esses IDs e iremos coloca-los como index da nossa tabela para facilitarmos a manipulação das tabelas.
+Logo abaixo construi uma lógica para utilizarmos as informações dos dados extraidos acima e calculamos o round trip time de cada um dos dispositivos.
 
-O primeiro `for` irá realizar os procedimentos para a lista de Publish e o segundo será responsável por realizar os procedimentos para a lista de ACK.
+```python title="relatorio.ipynb"
+data = {}
+for port in ports:
+    RTT = pd.DataFrame(columns=["Time_publish", "Time_ack"])
+    for index, row in devices[port]["publish"].iterrows():
+        id = int(row["Message Identifier"])
+        time_publish = row["Time"]
+        RTT.loc[id, "Time_publish"] = time_publish
 
-```python
-RTT = pd.DataFrame(columns=["Time_publish", "Time_ack"])
-for i in array_publish:
-    init = re.search("id=", data.loc[i, "Info"]).span()[1]
-    end = re.search("\)", data.loc[i, "Info"]).span()[0]
-    index = data.loc[i, "Info"][init:end]
-    RTT.loc[index,"Time_publish"]  = float(data.loc[i, "Time"])
-
-
-for i in array_publish_ack:
-    init = re.search("id=", data.loc[i, "Info"]).span()[1]
-    end = re.search("\)", data.loc[i, "Info"]).span()[0]
-    index = data.loc[i, "Info"][init:end]
-    RTT.loc[index,"Time_ack"]  = float(data.loc[i, "Time"])
+    for index, row in devices[port]["publish_ack"].iterrows():
+        id = int(row["Message Identifier"])
+        time_publish = row["Time"]
+        RTT.loc[id, "Time_ack"] = time_publish
+    RTT.loc[id, "Time_ack"] = time_publish
+    RTT["RTT"]  =(RTT["Time_ack"] - RTT["Time_publish"] )* 1000
+    data[port] = RTT
 
 ```
 
-Agora que já temos os dados de envio e de entrada iremos calcular a diferença de tempo entre o envio e a confirmação de envio.
+Agora já temos calculado todas as linhas de cada um dos dispositivos.
 
-```python
-RTT["RTT"]  =(RTT["Time_ack"] - RTT["Time_publish"] )* 1000
+```
+data[37953].head()
 ```
 
-Vamos analisar as 5 primeiras linhas da nossa tabela referente ao `Round Trip Time`.
+|     | Time_publish | Time_ack  | RTT      |
+| --- | ------------ | --------- | -------- |
+| 1   | 26.023436    | 26.02622  | 2.783157 |
+| 2   | 27.028577    | 27.031372 | 2.794709 |
+| 3   | 28.03388     | 28.036672 | 2.791512 |
+| 4   | 29.038713    | 29.041347 | 2.633264 |
+| 5   | 30.042765    | 30.045957 | 3.19254  |
 
-```python
-RTT.head(5)
+Agora que analisamos como está nossa tabela depois de todas as manipulações vamos calcular a média, moda, desvio padrão e mais algumas informações. Lembrando que nesse caso estamos tratando os dados de um dispositivo mas o código foi escrito para suportar um ou mais dispositivos.
+
+```.py
+i=1
+data_mean = []
+data_median = []
+data_std = []
+data_min = []
+data_max = []
+
+for port in ports:
+  data_mean.append(data[port]["RTT"].mean())
+  data_median.append(data[port]["RTT"].mean())
+  data_std.append(data[port]["RTT"].mean())
+  data_min.append(data[port]["RTT"].mean())
+  data_max.append(data[port]["RTT"].mean())
+
+  print("(Device-{})Mean Round Trip Time = {}".format(i ,data[port]["RTT"].mean()))
+  print("(Device-{})Median Round Trip Time = {}".format(i ,data[port]["RTT"].median()))
+  print("(Device-{})Standard deviation  Round Trip Time = {}".format(i ,data[port]["RTT"].std()))
+  print("(Device-{})Min Round Trip Time = {}".format(i ,data[port]["RTT"].min()))
+  print("(Device-{})Max Round Trip Time = {}".format(i ,data[port]["RTT"].max()))
+  print("---------------------------------------------------------------")
+
+  i+=1
+
 ```
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+```title="output"
+(Device-1)Mean Round Trip Time = 2.794579920265673
+(Device-1)Median Round Trip Time = 2.6867750000008073
+(Device-1)Standard deviation  Round Trip Time = 0.6409882996918244
+(Device-1)Min Round Trip Time = 2.37513999991279
+(Device-1)Max Round Trip Time = 12.155039000049328
+---------------------------------------------------------------
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
 
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Time_publish</th>
-      <th>Time_ack</th>
-      <th>RTT</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>6.778768</td>
-      <td>6.781292</td>
-      <td>2.523318</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>7.78846</td>
-      <td>7.790911</td>
-      <td>2.450871</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>8.798941</td>
-      <td>8.801384</td>
-      <td>2.443157</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>9.809386</td>
-      <td>9.81185</td>
-      <td>2.464106</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>10.828649</td>
-      <td>10.840241</td>
-      <td>11.592292</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</br>
+```
 
 ## Conceitos básicos de estatística
 
@@ -285,23 +194,23 @@ $s$ = desvio padrão amostral
 
 $e$ = erro inferencial
 
-### Calculando a desvio padrão $s$
+### Calculando o desvio padrão $s$
 
-```python
-s = RTT["RTT"].std()
-s
+```python title="relatorio.ipynb"
+desvio_padrao_amostral = data[37953]["RTT"].std()
+desvio_padrao_amostral
 ```
 
 $$
-s = 9.329458861571394
+desvioPadraoAmostral = 9.329458861571394
 $$
 
 ### Calculando o Erro
 
 Voltando ao nosso script teremos que adicionar as seguintes linhas de código para calcularmos o tamanho amostral
 
-```python
-media = RTT["RTT"].mean()
+```python title="relatorio.ipynb"
+media = data[37953]["RTT"].mean()
 e = 0.05 * media
 e
 ```
@@ -312,14 +221,16 @@ $$
 
 ### Calculando o tamanho da nossa amostra
 
-```python
+```{.py title="relatorio.ipynb"}
 n = (z * (s/e))**2
 n
 ```
 
 $$
-n = 6407.366013790879
+n = 80.83944240619886
 $$
+
+O código que foi explicado acima se localiza no diretório `Data_analytics/device-1-sizepayload-6-msg-600/relatorio.ipynb`
 
 Com isso finalizamos o calculo do número de amostra que iremos utilizar para nosso estudo.
 Lembrando que todos os códigos estaram disponiveis no github.
