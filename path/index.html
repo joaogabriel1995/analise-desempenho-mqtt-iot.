@@ -358,7 +358,7 @@
   <h1>Estrutura de Pastas</h1>
 
 <p>O projeto está disponibilizado no github e qualquer atualização será disponibiliza.</p>
-<p>Aqui iremos dar uma breve explicação como está a organização dos diretórios. Segue abaixo os diretórios disponivéis no projeto:</p>
+<p>Aqui iremos dar uma breve explicação como está a organização dos diretórios. Segue abaixo os diretórios disponiveis no projeto:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>.
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>|-- Data_analytics
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>|-- Documentation
@@ -371,22 +371,22 @@
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>6 directories, 1 file
 </code></pre></div>
 <h3 id="data_analytics">Data_analytics</h3>
-<p>Esse Diretório será responsavel por armazenar os resultados das simulações e os scripts para tratamento desses dados.</p>
-<p>Aqui irei utilizar um padrão de nomenclatura para as pastas, tentando sempre manter a maior organização e uma maior agilizade ao analisarmos os dados. Segue padrão abaixo.</p>
+<p>Esse Diretório será responsável por armazenar os resultados das simulações e os scripts para tratamento desses dados.</p>
+<p>Aqui irei utilizar um padrão de nomenclatura para as pastas, tentando sempre manter a maior organização e uma maior agilidade ao analisarmos os dados. Segue padrão abaixo.</p>
 <p><code>device-[x]-sizepayload-[y]-lines-[z]</code></p>
-<p><code>x = Será substituido pela quantidade de dispositivos que foram testados.</code></p>
-<p><code>y = Será substituido pelo tamanho do nosso payload.</code></p>
-<p><code>z = Será substituido pela quantidade de mensagens que foram trocadas POR usuario.</code></p>
+<p><code>x = Será substituído pela quantidade de dispositivos que foram testados.</code></p>
+<p><code>y = Será substituído pelo tamanho do nosso payload.</code></p>
+<p><code>z = Será substituído pela quantidade de mensagens que foram trocadas POR usuário.</code></p>
 <p>exemplo:</p>
 <p><code>device-5-sizepayload-6-msg-100</code></p>
-<p>Nesse exemplo dado acima iremos encontrar os resultados de um teste realizado com 5 devices, um payload de tamanho 6 bytes, e cada um desses usuarios realizou 100 publicações.</p>
-<p>Exemplo de arquivos encontrados dentro do diretório <code>Data_analytics/device-5-sizepayload-6-msg-100</code>.
+<p>Nesse exemplo dado acima iremos encontrar os resultados de um teste realizado com 5 devices, um payload de tamanho 6 bytes, e cada um desses usuários realizou 100 publicações.</p>
+<p>Exemplo de arquivos encontrados no diretório <code>Data_analytics/device-5-sizepayload-6-msg-100</code>.
 Explicação de cada um está ao lado dos nomes.</p>
 <div class="highlight"><span class="filename">device-5-sizepayload-6-msg-100</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>|-- Test\ Report\ for\ locustfile.py.html  # Um relatório disponibilizado pelo próprio locust após a simulação.
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|-- data.csv                               # Dados capturados pelo Wireshark em formato csv para analise de dados.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|-- data.csv                               # Dados capturados pelo Wireshark em formato csv para análise de dados.
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>|-- data_wireshark.pcapng                  # Dados capturados pelo Wireshark em formato pcapng.
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|-- exceptions_1668211736.780954.csv       # Um relatório de possiveis exceções na simulação
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>|-- failures_1668211735.9747043.csv        # Um relatório de possiveis falhas na simulação
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|-- exceptions_1668211736.780954.csv       # Um relatório de possíveis exceções na simulação
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>|-- failures_1668211735.9747043.csv        # Um relatório de possíveis falhas na simulação
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>|-- relatorio.ipynb                        # Um jupyterNotebook contendo os scripts utilizados para tratamento de dados da simulação
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>`-- requests_1668211735.3653195.csv        # Um relatório das requisições
 </code></pre></div>
@@ -405,7 +405,7 @@ Explicação de cada um está ao lado dos nomes.</p>
 </code></pre></div>
 <p>Se necessário rodar a documentação seguir o README.txt com todos os passos necessários para a utilização.</p>
 <h3 id="locust">Locust</h3>
-<p>Esse diretório iremos encontrar os scripts que foram utilizados para as simulações.</p>
+<p>Esse diretório iremos encontrar os scripts, que foram utilizados para as simulações.</p>
 <div class="highlight"><span class="filename">Locust</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>.
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>|-- README.txt
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>|-- requirements.txt

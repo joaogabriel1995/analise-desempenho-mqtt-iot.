@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#calculo-de-performance-com-locust-e-mqtt" class="md-skip">
+        <a href="#calculo-de-desempenho-com-locust-e-mqtt" class="md-skip">
           Skip to content
         </a>
       
@@ -373,7 +373,7 @@
                 
 
 
-<h1 id="calculo-de-performance-com-locust-e-mqtt">Calculo de performance com Locust e MQTT.</h1>
+<h1 id="calculo-de-desempenho-com-locust-e-mqtt">Calculo de desempenho com Locust e MQTT.</h1>
 <p>Antes de apresentar os códigos que serão utilizados para o nosso teste irei abordar alguns assuntos que acredito ser importante para um bom entendimento do que será repassado a frente.</p>
 <p>Todos os códigos que serão explicados nessa página estão disponiveis no meu <a href="https://github.com/joaogabriel1995/">Github</a>.</p>
 <h2 id="mqtt">MQTT</h2>
@@ -383,7 +383,7 @@ como o principal protocolo para implementações de IoT (SOUZA, 2019); (CORREA
 et. al, 2016)</p>
 <p>Esse protocolo foi criado e desenvolvido pela IBM na década de 90 e tinha como
 objetivo original monitorar gasodutos e plataformas de petróleos. Como essas
-plataformas de petróleo e gasodutos geralmente se localizadas em lugares remotos o
+plataformas de petróleo e gasodutos geralmente se localizam em lugares remotos, o
 protocolo foi desenvolvido com a finalidade de operar em ambientes de largura de
 banda muito baixa, permitindo a troca de informações onde alguns outros protocolos
 não conseguiam realizar tais trocas de dados.</p>
@@ -392,10 +392,7 @@ Nessa arquitetura, o dispositivo é responsável por enviar (publish) as informa
 servidor, que opera como um intermediário (broker). Tendo conhecimento dos clientes
 que estão interessados nas informações enviadas (subscribers), o broker retransmite
 as informações recebidas.</p>
-<p>A Fig. 1 exemplifica diversos tipos de dispositivos
-conectados recebendo e enviando informações. Pode ser analisado que um mesmo
-dispositivo pode realizar o papel de publish e subscribers.
-arquitetura-iot_1</p>
+<p>A Fig. 1 exemplifica</p>
 <p align="center">
   <img src="image/arquitetura-iot_1.jpg" />
 </p>
@@ -413,7 +410,7 @@ arquitetura-iot_1</p>
 <p>O Locust é uma ferramenta de teste de performance fácil de usar, programável e escalável.</p>
 <p>O comportamento do usuário é definindo por código python, então é muito customizável. Em nosso teste iremos definir o comportamento de um dispositivo IoT publicando mensagens em um determinado tópico.</p>
 <p>O Locust só vem com suporte embutido para HTTP/HTTPS, mas pode ser estendido para testar quase qualquer protocolo.</p>
-<p>Para para mais informações sobre o Locust, clique <a href="https://locust.io/">aqui</a>.</p>
+<p>Para mais informações sobre o Locust, clique <a href="https://locust.io/">aqui</a>.</p>
 <h2 id="wireshark">Wireshark</h2>
 <p><img alt="alt text for screen readers" src="image/wireshark-1.png" title="Text to show on mouseover" />
 <em>Figura 4 - Wireshark</em></p>
@@ -425,7 +422,7 @@ arquitetura-iot_1</p>
 </ul>
 <p>O primeiro é responsavel por capturar todos os pacotes que trafegam pela placa de rede que foi especificada, já o segundo é responsavel por interpretar os cabeçalhos e conteúdos dos pacotes.</p>
 <p>Esse programa será fundamental para analisarmos os resultados do nosso teste. Nos permitindo capturar o tempo da saida do nosso pacote e a capturar o tempo de chegada do nosso pacote de confirmação de recebimento do broker.</p>
-<p>Para para mais informações sobre o Wireshark, clique <a href="https://www.wireshark.org/">aqui</a>.</p>
+<p>Para mais informações sobre o Wireshark, clique <a href="https://www.wireshark.org/">aqui</a>.</p>
 
               
             </article>

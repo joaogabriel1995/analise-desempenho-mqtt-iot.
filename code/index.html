@@ -543,7 +543,7 @@ Ja a segunda tarefa que foi definida é mais complexa, nessa tarefa o cliente co
 <a id="__codelineno-4-35" name="__codelineno-4-35"></a>        <span class="n">COUNTClient</span> <span class="o">=</span> <span class="mi">0</span>
 <a id="__codelineno-4-36" name="__codelineno-4-36"></a>        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">on_stop</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-<p>Podemos perceber que já definimos os dois tempos que serão utilizados pelo Locust, um tempo que é capturado assim que a mensagem vai ser enviada e um segundo tempo que foi capturado logo após a confirmação de recebimento. Esse segundo tempo é capturado quando a função de callback on_publish é chamada.</p>
+<p>Podemos perceber que já definimos os dois tempos que serão utilizados pelo Locust, um tempo, que é capturado assim que a mensagem vai ser enviada e um segundo tempo, que foi capturado logo após a confirmação de recebimento. Esse segundo tempo é capturado quando a função de callback on_publish é chamada.</p>
 <h2 id="class-message">Class Message</h2>
 <p>Temos uma classe que Message, essa classe fica responsavel por criar um objeto que temos as informações da nossa mensagem.
 Isso facilita manipulação da mensagem se for necessário. Essa classe ficou alocada no arquivo <code>message.py</code></p>
