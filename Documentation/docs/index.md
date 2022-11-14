@@ -1,4 +1,4 @@
-# Calculo de performance com Locust e MQTT.
+# Calculo de desempenho com Locust e MQTT.
 
 Antes de apresentar os códigos que serão utilizados para o nosso teste irei abordar alguns assuntos que acredito ser importante para um bom entendimento do que será repassado a frente.
 
@@ -13,7 +13,7 @@ et. al, 2016)
 
 Esse protocolo foi criado e desenvolvido pela IBM na década de 90 e tinha como
 objetivo original monitorar gasodutos e plataformas de petróleos. Como essas
-plataformas de petróleo e gasodutos geralmente se localizadas em lugares remotos o
+plataformas de petróleo e gasodutos geralmente se localizam em lugares remotos, o
 protocolo foi desenvolvido com a finalidade de operar em ambientes de largura de
 banda muito baixa, permitindo a troca de informações onde alguns outros protocolos
 não conseguiam realizar tais trocas de dados.
@@ -24,10 +24,7 @@ servidor, que opera como um intermediário (broker). Tendo conhecimento dos clie
 que estão interessados nas informações enviadas (subscribers), o broker retransmite
 as informações recebidas.
 
-A Fig. 1 exemplifica diversos tipos de dispositivos
-conectados recebendo e enviando informações. Pode ser analisado que um mesmo
-dispositivo pode realizar o papel de publish e subscribers.
-arquitetura-iot_1
+A Fig. 1 exemplifica
 
 <p align="center">
   <img src="image/arquitetura-iot_1.jpg" />
@@ -56,7 +53,7 @@ O comportamento do usuário é definindo por código python, então é muito cus
 
 O Locust só vem com suporte embutido para HTTP/HTTPS, mas pode ser estendido para testar quase qualquer protocolo.
 
-Para para mais informações sobre o Locust, clique [aqui](https://locust.io/).
+Para mais informações sobre o Locust, clique [aqui](https://locust.io/).
 
 ## Wireshark
 
@@ -74,4 +71,4 @@ O primeiro é responsavel por capturar todos os pacotes que trafegam pela placa 
 
 Esse programa será fundamental para analisarmos os resultados do nosso teste. Nos permitindo capturar o tempo da saida do nosso pacote e a capturar o tempo de chegada do nosso pacote de confirmação de recebimento do broker.
 
-Para para mais informações sobre o Wireshark, clique [aqui](https://www.wireshark.org/).
+Para mais informações sobre o Wireshark, clique [aqui](https://www.wireshark.org/).

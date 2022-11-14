@@ -1,6 +1,6 @@
 O projeto está disponibilizado no github e qualquer atualização será disponibiliza.
 
-Aqui iremos dar uma breve explicação como está a organização dos diretórios. Segue abaixo os diretórios disponivéis no projeto:
+Aqui iremos dar uma breve explicação como está a organização dos diretórios. Segue abaixo os diretórios disponiveis no projeto:
 
 ```
 .
@@ -18,33 +18,33 @@ Aqui iremos dar uma breve explicação como está a organização dos diretório
 
 ### Data_analytics
 
-Esse Diretório será responsavel por armazenar os resultados das simulações e os scripts para tratamento desses dados.
+Esse Diretório será responsável por armazenar os resultados das simulações e os scripts para tratamento desses dados.
 
-Aqui irei utilizar um padrão de nomenclatura para as pastas, tentando sempre manter a maior organização e uma maior agilizade ao analisarmos os dados. Segue padrão abaixo.
+Aqui irei utilizar um padrão de nomenclatura para as pastas, tentando sempre manter a maior organização e uma maior agilidade ao analisarmos os dados. Segue padrão abaixo.
 
 `device-[x]-sizepayload-[y]-lines-[z]`
 
-`x = Será substituido pela quantidade de dispositivos que foram testados.`
+`x = Será substituído pela quantidade de dispositivos que foram testados.`
 
-`y = Será substituido pelo tamanho do nosso payload.`
+`y = Será substituído pelo tamanho do nosso payload.`
 
-`z = Será substituido pela quantidade de mensagens que foram trocadas POR usuario.`
+`z = Será substituído pela quantidade de mensagens que foram trocadas POR usuário.`
 
 exemplo:
 
 ` device-5-sizepayload-6-msg-100`
 
-Nesse exemplo dado acima iremos encontrar os resultados de um teste realizado com 5 devices, um payload de tamanho 6 bytes, e cada um desses usuarios realizou 100 publicações.
+Nesse exemplo dado acima iremos encontrar os resultados de um teste realizado com 5 devices, um payload de tamanho 6 bytes, e cada um desses usuários realizou 100 publicações.
 
-Exemplo de arquivos encontrados dentro do diretório `Data_analytics/device-5-sizepayload-6-msg-100`.
+Exemplo de arquivos encontrados no diretório `Data_analytics/device-5-sizepayload-6-msg-100`.
 Explicação de cada um está ao lado dos nomes.
 
 ```{title="device-5-sizepayload-6-msg-100"}
 |-- Test\ Report\ for\ locustfile.py.html  # Um relatório disponibilizado pelo próprio locust após a simulação.
-|-- data.csv                               # Dados capturados pelo Wireshark em formato csv para analise de dados.
+|-- data.csv                               # Dados capturados pelo Wireshark em formato csv para análise de dados.
 |-- data_wireshark.pcapng                  # Dados capturados pelo Wireshark em formato pcapng.
-|-- exceptions_1668211736.780954.csv       # Um relatório de possiveis exceções na simulação
-|-- failures_1668211735.9747043.csv        # Um relatório de possiveis falhas na simulação
+|-- exceptions_1668211736.780954.csv       # Um relatório de possíveis exceções na simulação
+|-- failures_1668211735.9747043.csv        # Um relatório de possíveis falhas na simulação
 |-- relatorio.ipynb                        # Um jupyterNotebook contendo os scripts utilizados para tratamento de dados da simulação
 `-- requests_1668211735.3653195.csv        # Um relatório das requisições
 
@@ -72,7 +72,7 @@ Se necessário rodar a documentação seguir o README.txt com todos os passos ne
 
 ### Locust
 
-Esse diretório iremos encontrar os scripts que foram utilizados para as simulações.
+Esse diretório iremos encontrar os scripts, que foram utilizados para as simulações.
 
 ```{title="Locust"}
 .

@@ -202,7 +202,7 @@ desvio_padrao_amostral
 ```
 
 $$
-desvioPadraoAmostral = 9.329458861571394
+desvioPadraoAmostral = 0.6409882996918244
 $$
 
 ### Calculando o Erro
@@ -216,7 +216,7 @@ e
 ```
 
 $$
-e = 0.2284361217568699
+e = 0.13972899601328367
 $$
 
 ### Calculando o tamanho da nossa amostra
@@ -234,3 +234,13 @@ O código que foi explicado acima se localiza no diretório `Data_analytics/devi
 
 Com isso finalizamos o calculo do número de amostra que iremos utilizar para nosso estudo.
 Lembrando que todos os códigos estaram disponiveis no github.
+
+## Dispersão da Amostra
+
+Para encerrar essa parte vamos analisar como ficou o gráfico de dispersão da nossa amostra piloto e seus valores máximos e minimos.
+
+![alt text](image/scatter-piloto.png)
+
+Esse primeiro gráfico foi através dos dados analisados do csv que foi retirado do wireshark, nesse segundo gráfico irei apresentar um dos gráficos que foi gerado pelo Locust.
+
+![alt text](<image/response_times_(ms)_1668391428(1).png>)

@@ -131,7 +131,7 @@ class PublishTask(TaskSet):
 
 ```
 
-Podemos perceber que já definimos os dois tempos que serão utilizados pelo Locust, um tempo que é capturado assim que a mensagem vai ser enviada e um segundo tempo que foi capturado logo após a confirmação de recebimento. Esse segundo tempo é capturado quando a função de callback on_publish é chamada.
+Podemos perceber que já definimos os dois tempos que serão utilizados pelo Locust, um tempo, que é capturado assim que a mensagem vai ser enviada e um segundo tempo, que foi capturado logo após a confirmação de recebimento. Esse segundo tempo é capturado quando a função de callback on_publish é chamada.
 
 ## Class Message
 
