@@ -7,9 +7,8 @@ Nesse primeiro momento irei explicar os códigos e resultados para os testes sem
 
 Segue abaixo um fluxograma reduzido de como é realizado a simulação dos nossos dispositivos.
 
-<p align="center">
-  <img src="/image/Simulação.png" />
-</p>
+![alt text for screen readers](image/simulacao.png 'fluxograma')
+_Figura 5 - Fluxograma da simulação_
 
 Esse fluxo será realizado por nosso script que será explicado logo abaixo.
 
