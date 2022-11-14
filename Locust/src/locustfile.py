@@ -25,9 +25,9 @@ class PublishTask(TaskSet):
     @task(1)
     def task_pub(self):
         self.client.loop_start()
-        self.start_time = get_time()
         topic = str(self.client._client_id)
         payload = formatpayload(SIZE_PAYLOAD)
+        self.start_time = get_time()
         MQTTMessageInfo = self.client.publish(
             topic, payload, qos=1, retain=False)
 
@@ -35,7 +35,6 @@ class PublishTask(TaskSet):
                                  self.client._client_id.decode())
         MQTTMessageInfo.mid = "{}-{}".format(MQTTMessageInfo.mid,
                                              self.client._client_id.decode())
-        self.client.user_data_set(pub_mid)
 
         self.client.pubmessage[pub_mid] = Message(
             REQUEST_TYPE,

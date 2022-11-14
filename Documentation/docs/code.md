@@ -5,6 +5,14 @@ Como podemos analisar o arquivo locust é um módulo Python normal, ele pode imp
 
 Nesse primeiro momento irei explicar os códigos e resultados para os testes sem a utilização do protocolo de segurança `Transport Layer Security`(TLS)
 
+Segue abaixo um fluxograma reduzido de como é realizado a simulação dos nossos dispositivos.
+
+<p align="center">
+  <img src="/image/Simulação.png" />
+</p>
+
+Esse fluxo será realizado por nosso script que será explicado logo abaixo.
+
 ## Import
 
 ```.py

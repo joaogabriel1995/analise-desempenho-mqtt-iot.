@@ -1,0 +1,4 @@
+- Amostragem piloto
+- TLS como capturar o tempo, ideias 
+- Procedimentos para gerar certificados
+- 
