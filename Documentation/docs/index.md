@@ -30,7 +30,7 @@ dispositivo pode realizar o papel de publish e subscribers.
 arquitetura-iot_1
 
 <p align="center">
-  <img src="/image/arquitetura-iot_1.jpg" />
+  <img src="image/arquitetura-iot_1.jpg" />
 </p>
 
 _Figura 1 – Protocolos TCP/IP e OSI_
@@ -42,12 +42,12 @@ O principal objetivo desse teste será calcular o tempo de ida e volta (RTT) de 
 
 O RTT é a duração em milissegundos (ms) que uma solicitação de rede leva para ir de um ponto de partida a um destino e de volta ao ponto de partida.
 
-![alt text for screen readers](/image/diagrama.png 'Text to show on mouseover')
+![alt text for screen readers](image/diagrama.png 'Text to show on mouseover')
 _Figura 2 - Round Trip Time (RTT)_
 
 ## Locust
 
-![alt text for screen readers](/image/locust.png 'Text to show on mouseover')
+![alt text for screen readers](image/locust.png 'Text to show on mouseover')
 _Figura 3 - Locust_
 
 O Locust é uma ferramenta de teste de performance fácil de usar, programável e escalável.
@@ -56,11 +56,11 @@ O comportamento do usuário é definindo por código python, então é muito cus
 
 O Locust só vem com suporte embutido para HTTP/HTTPS, mas pode ser estendido para testar quase qualquer protocolo.
 
-Para para mais informações sobre o Locust, clique [aqui](hhttps://locust.io/).
+Para para mais informações sobre o Locust, clique [aqui](https://locust.io/).
 
 ## Wireshark
 
-![alt text for screen readers](/image/wireshark-1.png 'Text to show on mouseover')
+![alt text for screen readers](image/wireshark-1.png 'Text to show on mouseover')
 _Figura 4 - Wireshark_
 
 O Wireshark é um programa para análise de protocolo de rede em código aberto, com esse programa é possivel verificar o funcionamento de uma rede.
