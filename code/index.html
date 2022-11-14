@@ -379,6 +379,12 @@
 <p>Agora, vamos analisar o arquivo locustfile.py e vamos destrinchar o código.
 Como podemos analisar o arquivo locust é um módulo Python normal, ele pode importar código de outros arquivos ou pacotes.</p>
 <p>Nesse primeiro momento irei explicar os códigos e resultados para os testes sem a utilização do protocolo de segurança <code>Transport Layer Security</code>(TLS)</p>
+<p>Segue abaixo um fluxograma reduzido de como é realizado a simulação dos nossos dispositivos.</p>
+<p align="center">
+  <img src="/image/Simulação.png" />
+</p>
+
+<p>Esse fluxo será realizado por nosso script que será explicado logo abaixo.</p>
 <h2 id="import">Import</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">time</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">locust</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">TaskSet</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">task</span>
