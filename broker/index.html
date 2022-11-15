@@ -13,7 +13,7 @@
     
     
       
-        <title>Analisando Amostra piloto - Simulação IoT</title>
+        <title>Servidor MQTT - Simulação IoT</title>
       
     
     
@@ -93,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Analisando Amostra piloto
+              Servidor MQTT
             
           </span>
         </div>
@@ -192,11 +192,21 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../broker/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Servidor MQTT
       </a>
+      
     </li>
   
 
@@ -252,68 +262,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Analisando Amostra piloto
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../analise_amostra_piloto/" class="md-nav__link">
         Analisando Amostra piloto
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objetivo" class="md-nav__link">
-    Objetivo
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dispersao-da-amostra" class="md-nav__link">
-    Dispersão da Amostra
-  </a>
-  
-    <nav class="md-nav" aria-label="Dispersão da Amostra">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -335,41 +288,8 @@
   
   
   
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#objetivo" class="md-nav__link">
-    Objetivo
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dispersao-da-amostra" class="md-nav__link">
-    Dispersão da Amostra
-  </a>
-  
-    <nav class="md-nav" aria-label="Dispersão da Amostra">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
     
-  </a>
   
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -383,80 +303,50 @@
                 
 
 
-  <h1>Analisando Amostra piloto</h1>
-
-<h2 id="objetivo">Objetivo</h2>
-<p>Nessa sessão irei olhar os dados e fazer alguns tratamentos necessários para uma boa análise.
-Começarei analisando um gráfico de dispersão referente a nossa amostra capturada na sessão passada.
-Nesse sessão pretendo mostrar mais um estudo em cima dos dados, focando menos em códigos que foram utilizados para essas análises.</p>
-<p>Os códigos que foram utilizados e os dados que estão sendo estudados nessa sessão, podem ser encontrados no diretório <code>Data_analytics/device-1-sizepayload-6-msg-600</code>.</p>
-<p>Segue abaixo uma tabela contendo informação que foram utilizadas desse diretório.</p>
-<p><center></p>
-<table>
-<thead>
-<tr>
-<th>Info</th>
-<th>link</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Dados</td>
-<td><a href="https://github.com/joaogabriel1995/analise-desempenho-mqtt-iot./blob/main/Data_analytics/device-1-sizepayload-6-msg-600/data.csv">data.csv</a></td>
-</tr>
-<tr>
-<td>Código Relatório</td>
-<td><a href="https://github.com/joaogabriel1995/analise-desempenho-mqtt-iot./blob/main/Data_analytics/device-1-sizepayload-6-msg-600/relatorio.ipynb">relatorio.ipynb</a></td>
-</tr>
-</tbody>
-</table>
-<p></center></p>
-<h2 id="dispersao-da-amostra">Dispersão da Amostra</h2>
-<p>Vamos analisar como os nossos dados estão distribuidos.</p>
-<p><img alt="alt text" src="../image/scatter-piloto.png" /></p>
-<div class="arithmatex">\[
-média = 2.7945
-\]</div>
-<div class="arithmatex">\[
-mediana = 2.6867
-\]</div>
-<p>Sabemos que a média é uma medida de tendência central que leva em consideração todos os valores de uma amostra o que é algo positivo. No entanto, como a média é sensivel a cada valor, valores extremos pode afeta-la de maneira consideravel. A média acaba não resistindo a valores extremos, portanto podemos dizer que a média não é uma medida de centro resistente. Quando nossa mediana é menor que nossa média indica uma assimetria para direita, ou seja, poucos valores de magnitude alta estão aumentando o valor da nossa média, podendo esses serem valores que são considerados outliers.</p>
-<h3 id="_1"></h3>
-<p>Analisando Dados Discrepantes(Outliers).</p>
-<p>Analisando o gráfico acima pode-se perceber que existem dados discrepantes, esses dados são conhecidos como outliers, que são dados que diferenciam drasticamente de todos os outros.</p>
-<p>Em outras palavras, um outlier é um valor que foge da normalidade e que pode causar anomalias nos resultados obtidos por meio de algoritmos e sistemas de análise.</p>
-<p>Vamos analisar um gráfico que é denominado boxPlot e depois utilizaremos uma regra para limpar os outliers.</p>
-<p>O grande objetivo é verificar a distribuição dos dados. Assim, as conclusões que tiramos ao analisar um box plot são: centro dos dados (a média ou mediana), a amplitude dos dados (máximo – mínimo), a simetria ou assimetria do conjunto de dados e a presença de outliers.</p>
-<p>Segue uma imagem abaixo que representa um boxplot. Iremos utilizar um conceito estatistico denominado intervalos interquartils</p>
-<p><img alt="alt text" src="../image/boxplotinfo.png" /></p>
-<p>Uma regra bastante usada afirma que um dado é um outlier quando ele é maior que <span class="arithmatex">\(1{,}5\cdot \text{FIQ}\)</span> acima do terceiro quartil ou abaixo do primeiro quartil.</p>
-<div class="arithmatex">\[ {FIQ} = {Q}_3 - {Q}_{1} \]</div>
-<div class="arithmatex">\[
-LimiteInferior = {Q}_{1} - 1,5.{FIQ}
-\]</div>
-<div class="arithmatex">\[
-LimiteSuperior = {Q}_{3} + 1,5.{FIQ}
-\]</div>
-<p>Segue abaixo o gráfico boxplot referente aos nossos dados.</p>
-<p><img alt="alt text" src="../image/boxplot_amostrapiloto.png" /></p>
-<p>Todos os valores foram calculados no código, aqui irei apenas apresentar os resultados já calculados.</p>
-<div class="arithmatex">\[
-LimiteSuperior = 2.9426
-\]</div>
-<div class="arithmatex">\[
-LimiteInferior = 2.4481
-\]</div>
-<p>Podemos considerar valores acima desses parametros, como valores discrepantes dos nossos dados.</p>
-<p>Agora irei apresentar um gráfico após a limpeza dos outliers.</p>
-<p><img alt="alt text" src="../image/distplot_amostrapiloto_outliers.png" /></p>
-<p>Após todas as limpezas iremos calcular nossa média novamente e ver qual impacto essa limpeza de dados gerou em nossa média.</p>
-<div class="arithmatex">\[
-média = 2.6776
-\]</div>
-<div class="arithmatex">\[
-mediana = 2.6763
-\]</div>
-<p><img alt="alt text" src="../image/histplot_amostrapiloto_outliers.png" /></p>
+<h1 id="objetivo">Objetivo</h1>
+<p>O objetivo dessa sessão é abordar as configurações necessárias para configurar um servidor mqtt no linux.Será necessário ter instalado o docker na máquina que for subir o servidor.</p>
+<p>Nesse primeiro instante irei abordar como será feita a configuração do servidor sem o protocolo de segurança TLS, mais a frente abordarei como é feita a configuração com esse protocolo.</p>
+<p>Iremos utilizar o broker denominado <code>Eclipse Mosquitto</code> que é um broker MQTT de software livre (licenciado por EPL/EDL).</p>
+<p>Primeiro passo é criar uma pasta denominada <code>mosquitto</code>, dentro dessa pasta é necessário criar a seguinte estrutura:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>.
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>|-- config
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>|   `-- mosquitto.conf
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>|-- data
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>|-- docker-compose.yml
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>`-- log
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    `-- mosquitto.log
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>3 directories, 3 files
+</code></pre></div>
+<p>Primeiro iremos configurar o arquivo de configuração do broker do seguinte modo.</p>
+<div class="highlight"><span class="filename">mosquitto/config/mosquitto.conf</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>allow_anonymous true
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>listener 1883
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>persistence_location /mosquitto/data/
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>log_dest file /mosquitto/log/mosquitto.log
+</code></pre></div>
+<p>A configuração <code>allow_anonymous</code> determina se os clientes que se conectam sem fornecer um nome de usuário têm permissão para se conectar.
+A configuração <code>listener</code> determina qual porta o broker irá escutar, nesse caso iremos configurar a porta padrão para comunicação sem protocolo de segurança.
+Os outros 2 argumentos são referentes ao armazenamento e log.</p>
+<p>Agora irei configurar o arquivo de configuração do docker compose, não irei entrar em detalhes nessas configurações.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>version: &quot;3.7&quot; #versão do docker
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>services: # Docker Compose trata todos os contêineres que desejamos executar como serviços
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  mqtt:                                 #nome do nosso serviço.
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    container_name: mqtt
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    image: eclipse-mosquitto            #O nome da imagem utilizada para a construção do contêiner.
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    restart: always
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    volumes:                            #Diretorios do host compartilhadas com container
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>      - ./config:/mosquitto/config
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>      - ./data:/mosquitto/data
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>      - ./log:/mosquitto/log
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    ports:                              #é utilizada para informar a porta do sistema hospedeiro que receberá as
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>      - 1883:1883                       #requisições e para qual porta deve encaminhar estas requisições para dentro do contêiner
+</code></pre></div>
+<p>Após essas configurações será necessário rodar o seguinte comando no mesmo diretório que o arquivo <code>docker-compose.yml</code> está salvo.</p>
+<div class="highlight"><span class="filename">bash</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker-compose up
+</code></pre></div>
+<p>Se tudo ocorrer conforme o esperado o servidor já vai estar funcionando. Abaixo segue uma imagem ápos utilizar o ultimo comando explicado acima.</p>
+<p><img alt="alt text for screen readers" src="../image/brolerconnect.png" title="Text to show on mouseover" /></p>
 
               
             </article>
@@ -472,7 +362,7 @@ mediana = 2.6763
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../tamanho_da_amos/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Definindo tamanho de amostra" rel="prev">
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introdução" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -481,11 +371,26 @@ mediana = 2.6763
               <span class="md-footer__direction">
                 Previous
               </span>
-              Definindo tamanho de amostra
+              Introdução
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../path/" class="md-footer__link md-footer__link--next" aria-label="Next: Estrutura de Pastas" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Estrutura de Pastas
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
