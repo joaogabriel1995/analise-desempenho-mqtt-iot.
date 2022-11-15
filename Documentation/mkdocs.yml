@@ -6,6 +6,7 @@ theme:
 
 nav:
   - Introdução: index.md
+  - Servidor MQTT: broker.md
   - Estrutura de Pastas: path.md
 
   - Código para Simulação: code.md

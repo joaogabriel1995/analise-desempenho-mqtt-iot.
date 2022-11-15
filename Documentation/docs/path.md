@@ -90,6 +90,7 @@ Dentro desse diretório também foi inserido um `README.txt` com algumas instru�
 ### mosquitto e mosquittotls
 
 Dentro desses diretórios iremos encontrar os arquivos necessários para configurarmos o broker mqtt, o diretório denominado mosquitto não possui a pasta config/certs, pois não apresenta necessidade, já no mosquittotls iremos necessitar dos certificados.
+Mais adianta será explicado como gerar os certificados.
 
 ```{title="mosquittotls"}
 |-- config

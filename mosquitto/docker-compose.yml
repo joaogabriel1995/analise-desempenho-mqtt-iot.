@@ -6,13 +6,8 @@ services:
     image: eclipse-mosquitto
     restart: always
     volumes:
-      - /home/joao/Documents/mosquitto/config:/mosquitto/config
-      - /home/joao/Documents/mosquitto/data:/mosquitto/data
-      - /home/joao/Documents/mosquitto/log:/mosquitto/log
+      - ./config:/mosquitto/config
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
     ports:
       - 1883:1883
-    networks:
-      - intnet
-
-networks:
-  intnet:
