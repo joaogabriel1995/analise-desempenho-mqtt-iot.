@@ -235,12 +235,3 @@ O código que foi explicado acima se localiza no diretório `Data_analytics/devi
 Com isso finalizamos o calculo do número de amostra que iremos utilizar para nosso estudo.
 Lembrando que todos os códigos estaram disponiveis no github.
 
-## Dispersão da Amostra
-
-Para encerrar essa parte vamos analisar como ficou o gráfico de dispersão da nossa amostra piloto e seus valores máximos e minimos.
-
-![alt text](image/scatter-piloto.png)
-
-Esse primeiro gráfico foi através dos dados analisados do csv que foi retirado do wireshark, nesse segundo gráfico irei apresentar um dos gráficos que foi gerado pelo Locust.
-
-![alt text](<image/response_times_(ms)_1668391428(1).png>)

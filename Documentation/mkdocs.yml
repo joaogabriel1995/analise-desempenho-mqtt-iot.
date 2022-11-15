@@ -7,9 +7,10 @@ theme:
 nav:
   - Introdução: index.md
   - Estrutura de Pastas: path.md
-  
+
   - Código para Simulação: code.md
   - Definindo tamanho de amostra: tamanho_da_amos.md
+  - Analisando Amostra piloto: analise_amostra_piloto.md
 
 markdown_extensions:
   - pymdownx.highlight:
